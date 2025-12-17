@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Typing Test</title>
+</head>
+
+<body style="font-family: Arial; background-color: #d3efe0; padding: 0; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh;">
+
+  <div style="background:#d6ecd0; padding:30px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1); text-align:center;">
+
+  <h1 style="color: #4f46e5;">Typing Speed Test </h1>
+
+  <!-- Text to type -->
+  <p><b>Type this sentence:</b></p>
+  <p id="givenText" style="background: #d3efe0; padding:10px;">
+   Success is not magic, it is the result of hard work and strong determination. You should never give up on your dreams, even when the times are very difficult. Always remember that every small step you take today will lead you to a much better tomorrow. Just believe in yourself and keep doing your best work with full honesty.
+  </p>
+
+  <!-- Input box -->
+  <textarea id="inputText" rows="5" cols="120" placeholder="Start typing here..."></textarea>
+<br><br>
+  <!-- Button -->
+  <button style="background:#0a8b05;color:white;padding:8px 16px;border:none;border-radius:5px;" onclick="checkSpeed()">Check Speed</button>
+  <button style="background:#ef4444;color:white;padding:8px 16px;border:none;border-radius:5px;" onclick="resetTest()">Reset</button>
+
+  <!-- Result -->
+  <p id="result"></p>
+
+  <script>
+    // sentence
+    let text = "Success is not magic, it is the result of hard work and strong determination. You should never give up on your dreams, even when the times are very difficult. Always remember that every small step you take today will lead you to a much better tomorrow. Just believe in yourself and keep doing your best work with full honesty.";
+    let startTime;
+
+    // when user starts typing
+    document.getElementById("inputText").addEventListener("focus", function() {
+      startTime = new Date().getTime();
+    });
+
+    function checkSpeed() {
+      let endTime = new Date().getTime();
+      let timeTaken = (endTime - startTime) / 1000; // seconds
+
+      let typedText = document.getElementById("inputText").value;
+      let words = typedText.trim().split(" ").length;
+      let speed = Math.round((words / timeTaken) * 60);
+
+      // error count
+      let errors = 0;
+      for (let i = 0; i < text.length; i++) {
+        if (typedText[i] !== text[i]) {
+          errors++;
+        }
+      }((words / timeTaken) * 60);
+
+      document.getElementById("result").innerHTML =
+        "Time: " + timeTaken.toFixed(2) + " sec <br>" +
+        "Speed: " + speed + " WPM <br>" +
+        "Errors: " + errors;
+    }
+
+    function resetTest() {
+      document.getElementById("inputText").value = "";
+      document.getElementById("result").innerHTML = "";
+      startTime = null;
+    }
+  </script>
+
+</div>
+
+</body>
+</html>
